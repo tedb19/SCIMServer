@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace SCIMServer.Domain.Repositories
 {
-    interface IGroupRepository
+    public interface IGroupRepository
     {
         Task<IEnumerable<Group>> ListAsync();
         Task AddAsync(Group Group);
