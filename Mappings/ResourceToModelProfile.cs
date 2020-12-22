@@ -12,6 +12,8 @@ namespace SCIMServer.Mappings
             CreateMap<SaveUserResource, User>();
             CreateMap<NameResource, Name>();
             CreateMap<AddressResource, Address>();
+            CreateMap<SaveMetaResource, Meta>();
+            CreateMap<EmailResource, Email>();
         }
     }
     

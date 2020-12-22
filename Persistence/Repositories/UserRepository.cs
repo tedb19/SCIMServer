@@ -16,7 +16,7 @@ namespace SCIMServer.Persistence.Repositories
 
         public async Task<IEnumerable<User>> ListAsync()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Users.Include(user => user.Emails).ToListAsync();
         }
 
         public async Task AddAsync(User User)

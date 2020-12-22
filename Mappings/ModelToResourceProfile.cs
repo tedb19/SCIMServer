@@ -13,6 +13,14 @@ namespace SCIMServer.Mappings
             CreateMap<User, UserResource>()
                 .ForMember(src => src.Status,
                             opt => opt.MapFrom(src => src.Status.ToDescriptionString()));
+            CreateMap<Meta, MetaResource>()
+                .ForMember(src => src.ResourceType,
+                            opt => opt.MapFrom(src => src.ResourceType.ToDescriptionString()));
+            CreateMap<Address, AddressResource>();
+            CreateMap<Name, NameResource>();
+            CreateMap<Email, EmailResource>()
+                .ForMember(src => src.Type,
+                            opt => opt.MapFrom(src => src.Type.ToDescriptionString()));
         }
     }
 }

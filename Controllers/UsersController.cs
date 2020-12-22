@@ -22,6 +22,14 @@ namespace SCIMServer.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet("{id}")]
+        public async Task<UserResource> GetOneAsync(int id)
+        {
+            var user = await _UserService.FindByIdAsync(id);
+            var resources = _mapper.Map<User, UserResource>(user);
+            return resources;
+        }
+
         [HttpGet]
         public async Task<IEnumerable<UserResource>> GetAllAsync()
         {

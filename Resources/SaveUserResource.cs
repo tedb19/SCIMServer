@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace SCIMServer.Resources
 {
@@ -8,12 +9,13 @@ namespace SCIMServer.Resources
         public int ExternalId { get; set; }
         [Required]
         public string UserName { get; set; }
-        public string Email { get; set; }
         [Required]
         public NameResource Name { get; set; }
         public AddressResource Address { get; set; }
         [Required]
         public string Status { get; set; }
-        public GroupResource Group { get; set; }
+        public SaveGroupResource Group { get; set; }
+        public SaveMetaResource Meta { get; set; }
+        public IList<EmailResource> Emails { get; set; } = new List<EmailResource>();
     }
 }

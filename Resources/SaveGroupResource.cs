@@ -7,5 +7,6 @@ namespace SCIMServer.Resources
         [Required]
         [MaxLength(30)]
         public string Name { get; set; }
+        public SaveMetaResource Meta { get; set; }
     }
 }
