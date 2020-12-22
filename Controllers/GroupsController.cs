@@ -28,6 +28,14 @@ namespace SCIMServer.Controllers
             return resources;
         }
 
+        [HttpGet("{id}")]
+        public async Task<GroupResource> GetOneAsync(int id)
+        {
+            var group = await _groupService.FindByIdAsync(id);
+            var resources = _mapper.Map<Group, GroupResource>(group);
+            return resources;
+        }
+
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SaveGroupResource resource)
         {

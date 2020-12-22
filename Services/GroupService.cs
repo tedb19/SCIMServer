@@ -20,6 +20,11 @@ namespace SCIMServer.Services
 
         }
 
+        public async Task<Group> FindByIdAsync(int id)
+        {
+            return await _groupRepository.findByIdAsync(id);
+        }
+
         public async Task<GroupResponse> DeleteAsync(int id)
         {
             var existingGroup = await _groupRepository.findByIdAsync(id);

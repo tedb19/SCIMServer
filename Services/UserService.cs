@@ -20,6 +20,11 @@ namespace SCIMServer.Services
 
         }
 
+        public async Task<User> FindByIdAsync(int id)
+        {
+            return await _userRepository.findByIdAsync(id);
+        }
+
         public async Task<UserResponse> DeleteAsync(int id)
         {
             var existingUser = await _userRepository.findByIdAsync(id);

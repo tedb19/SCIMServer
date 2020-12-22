@@ -1,13 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace SCIMServer.Domain.Models
 {
-    public class User
+    public class User : Resource
     {
-        public int Id { get; set; }
-        public int ExternalId { get; set; }
         public string UserName { get; set; }
-        public string Email { get; set; }
+        public IList<Email> Emails { get; set; } = new List<Email>();
         public Name Name { get; set; }
         public Address Address { get; set; }
         public EStatus Status { get; set; }

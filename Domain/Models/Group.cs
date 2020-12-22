@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace SCIMServer.Domain.Models
 {
-    public class Group
+    public class Group : Resource
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public IList<User> Users { get; set; } = new List<User>();
     }

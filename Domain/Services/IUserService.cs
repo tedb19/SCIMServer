@@ -9,6 +9,7 @@ namespace SCIMServer.Domain.Services
     {
         Task<IEnumerable<User>> ListAsync();
         Task<UserResponse> SaveAsync(User User);
+        Task<User> FindByIdAsync(int id);
         Task<UserResponse> UpdateAsync(int id, User User);
         Task<UserResponse> DeleteAsync(int id);
     }
