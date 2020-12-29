@@ -1,8 +1,4 @@
 ﻿using SCIMServer.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SCIMServer.Domain.Communication
 {
@@ -15,7 +11,7 @@ namespace SCIMServer.Domain.Communication
             User = user;
         }
 
-        public UserResponse(User User) : this(true, string.Empty, User)
+        public UserResponse(User user) : this(true, string.Empty, user)
         { }
 
         public UserResponse(string message) : this(false, message, null)

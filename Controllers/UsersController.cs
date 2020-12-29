@@ -4,28 +4,27 @@ using SCIMServer.Domain.Models;
 using SCIMServer.Domain.Services;
 using SCIMServer.Extensions;
 using SCIMServer.Resources;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SCIMServer.Controllers
 {
-    [Route("/api/[controller]")]
+    [ApiVersion("2.0")]
+    [Route("/api/v{version:apiVersion}/[controller]")]
     public class UsersController : Controller
     {
-        private readonly IUserService _UserService;
+        private readonly IUserService _userService;
         private readonly IMapper _mapper;
-        public UsersController(IUserService UserService, IMapper mapper)
+        public UsersController(IUserService userService, IMapper mapper)
         {
-            _UserService = UserService;
+            _userService = userService;
             _mapper = mapper;
         }
 
         [HttpGet("{id}")]
-        public async Task<UserResource> GetOneAsync(int id)
+        public async Task<UserResource> GetOneAsync(string id)
         {
-            var user = await _UserService.FindByIdAsync(id);
+            var user = await _userService.FindByIdAsync(id);
             var resources = _mapper.Map<User, UserResource>(user);
             return resources;
         }
@@ -33,8 +32,8 @@ namespace SCIMServer.Controllers
         [HttpGet]
         public async Task<IEnumerable<UserResource>> GetAllAsync()
         {
-            var Users = await _UserService.ListAsync();
-            var resources = _mapper.Map<IEnumerable<User>, IEnumerable<UserResource>>(Users);
+            var users = await _userService.ListAsync();
+            var resources = _mapper.Map<IEnumerable<User>, IEnumerable<UserResource>>(users);
             return resources;
         }
 
@@ -44,41 +43,43 @@ namespace SCIMServer.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessages());
 
-            var User = _mapper.Map<SaveUserResource, User>(resource);
-            var result = await _UserService.SaveAsync(User);
+            var user = _mapper.Map<SaveUserResource, User>(resource);
+            var result = await _userService.SaveAsync(user);
 
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            var UserResource = _mapper.Map<User, UserResource>(result.User);
-            return Ok(UserResource);
+            var userResource = _mapper.Map<User, UserResource>(result.User);
+            return StatusCode(201, userResource);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutAsync(int id, [FromBody] SaveUserResource resource)
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> PatchAsync(string id, [FromBody] SaveUserResource resource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessages());
-            var User = _mapper.Map<SaveUserResource, User>(resource);
-            var result = await _UserService.UpdateAsync(id, User);
+
+            var user = _mapper.Map<SaveUserResource, User>(resource);
+
+            var result = await _userService.UpdateAsync(id, user);
 
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            var UserResource = _mapper.Map<User, UserResource>(result.User);
-            return Ok(UserResource);
+            var userResource = _mapper.Map<User, UserResource>(result.User);
+            return Ok(userResource);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAsync(int id)
+        public async Task<IActionResult> DeleteAsync(string id)
         {
-            var result = await _UserService.DeleteAsync(id);
+            var result = await _userService.DeleteAsync(id);
 
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            var UserResource = _mapper.Map<User, UserResource>(result.User);
-            return Ok(UserResource);
+            var userResource = _mapper.Map<User, UserResource>(result.User);
+            return Ok(userResource);
         }
     }
 }

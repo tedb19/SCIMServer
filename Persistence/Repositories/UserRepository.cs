@@ -19,24 +19,24 @@ namespace SCIMServer.Persistence.Repositories
             return await _context.Users.Include(user => user.Emails).ToListAsync();
         }
 
-        public async Task AddAsync(User User)
+        public async Task AddAsync(User user)
         {
-            await _context.Users.AddAsync(User);
+            await _context.Users.AddAsync(user);
         }
 
-        public async Task<User> findByIdAsync(int id)
+        public async Task<User> FindByIdAsync(string id)
         {
             return await _context.Users.FindAsync(id);
         }
 
-        public void Update(User User)
+        public void Update(User user)
         {
-            _context.Users.Update(User);
+            _context.Users.Update(user);
         }
 
-        public void Remove(User User)
+        public void Remove(User user)
         {
-            _context.Users.Remove(User);
+            _context.Users.Remove(user);
         }
     }
 }

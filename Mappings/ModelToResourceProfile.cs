@@ -10,9 +10,7 @@ namespace SCIMServer.Mappings
         public ModelToResourceProfile()
         {
             CreateMap<Group, GroupResource>();
-            CreateMap<User, UserResource>()
-                .ForMember(src => src.Status,
-                            opt => opt.MapFrom(src => src.Status.ToDescriptionString()));
+            CreateMap<User, UserResource>();
             CreateMap<Meta, MetaResource>()
                 .ForMember(src => src.ResourceType,
                             opt => opt.MapFrom(src => src.ResourceType.ToDescriptionString()));

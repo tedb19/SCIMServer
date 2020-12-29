@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace SCIMServer.Controllers
 {
-    [Route("/api/[controller]")]
+    [ApiVersion("2.0")]
+    [Route("/api/v{version:apiVersion}/[controller]")]
     public class GroupsController : Controller
     {
         private readonly IGroupService _groupService;
@@ -29,7 +30,7 @@ namespace SCIMServer.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<GroupResource> GetOneAsync(int id)
+        public async Task<GroupResource> GetOneAsync(string id)
         {
             var group = await _groupService.FindByIdAsync(id);
             var resources = _mapper.Map<Group, GroupResource>(group);
@@ -42,41 +43,41 @@ namespace SCIMServer.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessages());
 
-            var Group = _mapper.Map<SaveGroupResource, Group>(resource);
-            var result = await _groupService.SaveAsync(Group);
+            var group = _mapper.Map<SaveGroupResource, Group>(resource);
+            var result = await _groupService.SaveAsync(group);
 
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            var GroupResource = _mapper.Map<Group, GroupResource>(result.Group);
-            return Ok(GroupResource);
+            var groupResource = _mapper.Map<Group, GroupResource>(result.Group);
+            return Ok(groupResource);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAsync(int id, [FromBody] SaveGroupResource resource)
+        public async Task<IActionResult> PutAsync(string id, [FromBody] SaveGroupResource resource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessages());
-            var Group = _mapper.Map<SaveGroupResource, Group>(resource);
-            var result = await _groupService.UpdateAsync(id, Group);
+            var group = _mapper.Map<SaveGroupResource, Group>(resource);
+            var result = await _groupService.UpdateAsync(id, group);
 
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            var GroupResource = _mapper.Map<Group, GroupResource>(result.Group);
-            return Ok(GroupResource);
+            var groupResource = _mapper.Map<Group, GroupResource>(result.Group);
+            return Ok(groupResource);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAsync(int id)
+        public async Task<IActionResult> DeleteAsync(string id)
         {
             var result = await _groupService.DeleteAsync(id);
 
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            var GroupResource = _mapper.Map<Group, GroupResource>(result.Group);
-            return Ok(GroupResource);
+            var groupResource = _mapper.Map<Group, GroupResource>(result.Group);
+            return Ok(groupResource);
         }
     }
 }

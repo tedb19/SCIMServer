@@ -1,8 +1,5 @@
 ﻿using SCIMServer.Domain.Repositories;
 using SCIMServer.Persistence.Contexts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SCIMServer.Persistence.Repositories

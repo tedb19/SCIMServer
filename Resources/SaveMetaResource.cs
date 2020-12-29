@@ -1,6 +1,4 @@
-﻿using SCIMServer.Domain.Models;
-
-namespace SCIMServer.Resources
+﻿namespace SCIMServer.Resources
 {
     public class SaveMetaResource
     {
