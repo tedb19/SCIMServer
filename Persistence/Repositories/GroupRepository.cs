@@ -19,24 +19,24 @@ namespace SCIMServer.Persistence.Repositories
             return await _context.Groups.ToListAsync();
         }
 
-        public async Task AddAsync(Group Group)
+        public async Task AddAsync(Group @group)
         {
-            await _context.Groups.AddAsync(Group);
+            await _context.Groups.AddAsync(@group);
         }
 
-        public async Task<Group> findByIdAsync(int id)
+        public async Task<Group> FindByIdAsync(string id)
         {
             return await _context.Groups.FindAsync(id);
         }
 
-        public void Update(Group Group)
+        public void Update(Group @group)
         {
-            _context.Groups.Update(Group);
+            _context.Groups.Update(@group);
         }
 
-        public void Remove(Group Group)
+        public void Remove(Group @group)
         {
-            _context.Groups.Remove(Group);
+            _context.Groups.Remove(@group);
         }
     }
 }

@@ -8,9 +8,9 @@ namespace SCIMServer.Domain.Services
     public interface IGroupService
     {
         Task<IEnumerable<Group>> ListAsync();
-        Task<GroupResponse> SaveAsync(Group Group);
-        Task<Group> FindByIdAsync(int id);
-        Task<GroupResponse> UpdateAsync(int id, Group Group);
-        Task<GroupResponse> DeleteAsync(int id);
+        Task<GroupResponse> SaveAsync(Group @group);
+        Task<Group> FindByIdAsync(string id);
+        Task<GroupResponse> UpdateAsync(string id, Group @group);
+        Task<GroupResponse> DeleteAsync(string id);
     }
 }

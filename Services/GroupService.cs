@@ -13,21 +13,21 @@ namespace SCIMServer.Services
         private readonly IGroupRepository _groupRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public GroupService(IGroupRepository GroupRepository, IUnitOfWork unitOfWork)
+        public GroupService(IGroupRepository groupRepository, IUnitOfWork unitOfWork)
         {
-            _groupRepository = GroupRepository;
+            _groupRepository = groupRepository;
             _unitOfWork = unitOfWork;
 
         }
 
-        public async Task<Group> FindByIdAsync(int id)
+        public async Task<Group> FindByIdAsync(string id)
         {
-            return await _groupRepository.findByIdAsync(id);
+            return await _groupRepository.FindByIdAsync(id);
         }
 
-        public async Task<GroupResponse> DeleteAsync(int id)
+        public async Task<GroupResponse> DeleteAsync(string id)
         {
-            var existingGroup = await _groupRepository.findByIdAsync(id);
+            var existingGroup = await _groupRepository.FindByIdAsync(id);
 
             if (existingGroup == null)
             {
@@ -52,14 +52,14 @@ namespace SCIMServer.Services
 
         }
 
-        public async Task<GroupResponse> SaveAsync(Group Group)
+        public async Task<GroupResponse> SaveAsync(Group @group)
         {
             try
             {
-                await _groupRepository.AddAsync(Group);
+                await _groupRepository.AddAsync(@group);
                 await _unitOfWork.CompleteAsync();
 
-                return new GroupResponse(Group);
+                return new GroupResponse(@group);
             }
             catch (Exception ex)
             {
@@ -67,14 +67,14 @@ namespace SCIMServer.Services
             }
         }
 
-        public async Task<GroupResponse> UpdateAsync(int id, Group Group)
+        public async Task<GroupResponse> UpdateAsync(string id, Group @group)
         {
-            var existingGroup = await _groupRepository.findByIdAsync(id);
+            var existingGroup = await _groupRepository.FindByIdAsync(id);
 
             if (existingGroup == null)
                 return new GroupResponse("Group not found!");
 
-            existingGroup.Name = Group.Name;
+            existingGroup.Name = @group.Name;
 
             try
             {

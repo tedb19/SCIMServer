@@ -1,7 +1,4 @@
 ﻿using SCIMServer.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 namespace SCIMServer.Domain.Communication
 {
     public class GroupResponse : BaseResponse

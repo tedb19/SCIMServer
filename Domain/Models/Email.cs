@@ -7,6 +7,6 @@
         public string Value { get; set; }
         public bool Primary { get; set; }
         public User User { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
     }
 }

@@ -7,9 +7,9 @@ namespace SCIMServer.Domain.Repositories
     public interface IGroupRepository
     {
         Task<IEnumerable<Group>> ListAsync();
-        Task AddAsync(Group Group);
-        Task<Group> findByIdAsync(int id);
-        void Update(Group Group);
-        void Remove(Group Group);
+        Task AddAsync(Group @group);
+        Task<Group> FindByIdAsync(string id);
+        void Update(Group @group);
+        void Remove(Group @group);
     }
 }

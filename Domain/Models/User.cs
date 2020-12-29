@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace SCIMServer.Domain.Models
 {
@@ -9,8 +8,11 @@ namespace SCIMServer.Domain.Models
         public IList<Email> Emails { get; set; } = new List<Email>();
         public Name Name { get; set; }
         public Address Address { get; set; }
-        public EStatus Status { get; set; }
+        public bool? Active { get; set; }
         public Group Group { get; set; }
-        public int? GroupId { get; set; }
+        public string GroupId { get; set; }
+        public EnterpriseUserExtension EnterpriseUserExtension { get; set; }
+        public CustomExtensions CustomExtensions { get; set; }
+
     }
 }

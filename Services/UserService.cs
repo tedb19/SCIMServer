@@ -13,21 +13,21 @@ namespace SCIMServer.Services
         private readonly IUserRepository _userRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public UserService(IUserRepository UserRepository, IUnitOfWork unitOfWork)
+        public UserService(IUserRepository userRepository, IUnitOfWork unitOfWork)
         {
-            _userRepository = UserRepository;
+            _userRepository = userRepository;
             _unitOfWork = unitOfWork;
 
         }
 
-        public async Task<User> FindByIdAsync(int id)
+        public async Task<User> FindByIdAsync(string id)
         {
-            return await _userRepository.findByIdAsync(id);
+            return await _userRepository.FindByIdAsync(id);
         }
 
-        public async Task<UserResponse> DeleteAsync(int id)
+        public async Task<UserResponse> DeleteAsync(string id)
         {
-            var existingUser = await _userRepository.findByIdAsync(id);
+            var existingUser = await _userRepository.FindByIdAsync(id);
 
             if (existingUser == null)
             {
@@ -52,14 +52,14 @@ namespace SCIMServer.Services
 
         }
 
-        public async Task<UserResponse> SaveAsync(User User)
+        public async Task<UserResponse> SaveAsync(User user)
         {
             try
             {
-                await _userRepository.AddAsync(User);
+                await _userRepository.AddAsync(user);
                 await _unitOfWork.CompleteAsync();
 
-                return new UserResponse(User);
+                return new UserResponse(user);
             }
             catch (Exception ex)
             {
@@ -67,14 +67,14 @@ namespace SCIMServer.Services
             }
         }
 
-        public async Task<UserResponse> UpdateAsync(int id, User User)
+        public async Task<UserResponse> UpdateAsync(string id, User user)
         {
-            var existingUser = await _userRepository.findByIdAsync(id);
+            var existingUser = await _userRepository.FindByIdAsync(id);
 
             if (existingUser == null)
                 return new UserResponse("User not found!");
 
-            existingUser.Name = User.Name;
+            existingUser.Name = user.Name;
 
             try
             {
